@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio BTS SIO SISR</title>
+    
+    <!-- ========== LIENS MODIFIABLES - À PERSONNALISER ========== -->
+    <script>
+        // Modifiez ces liens selon vos besoins
+        window.PORTFOLIO_LINKS = {
+            // Informations personnelles
+            email: "hadllahi.dieng@gmail.com",
+            
+            // Réseaux sociaux (remplacez par vos vrais profils)
+            github: "https://github.com/Hadyyatu",
+            linkedin: "https://www.linkedin.com/in/hadyyatu-llahi-dieng-282aab332/",
+            
+            // Documents (placez vos fichiers dans le même dossier que index.html)
+            cv: <a href="./Documents/C.pdf"></a>,
+            synthesePdf: <a href="./Documents/BTS SIO 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse.pdf"></a>,
+            
+            // Veilles technologiques (créez ces pages HTML ou mettez des liens externes)
+            veilleCyber: <a href="./Documents/Veille_Automatisation_Infrastructures_Reseau.pdf"></a>,
+            veilleInfra: <a href="./Documents/Veille_Virtualisation_Containers2.pdf"></a>,
+        };
+    </script>
+    <!-- ========== FIN DES LIENS MODIFIABLES ========== -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #030712;
+            color: white;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #1f2937;
+            background-color: rgba(3, 7, 18, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        .header-container {
+            max-width: 64rem;
+            margin: 0 auto;
+            display: flex;
+            height: 4rem;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: white;
+        }
+
+        .cv-btn {
+            position: absolute;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #374151;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+
+        .cv-btn:hover {
+            background-color: #1f2937;
+        }
+
+        .cv-btn svg {
+            margin-right: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero .highlight {
+            color: #60a5fa;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #9ca3af;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            border-top: 1px solid #1f2937;
+        }
+
+        .container {
+            max-width: 48rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .container-wide {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .container-xl {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-text {
+            font-size: 1.125rem;
+            color: #d1d5db;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* Cards */
+        .card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 0.5rem;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.375rem;
+        }
+
+        .card-title-sm {
+            font-size: 1.125rem;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        .card-content {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Lists */
+        .list {
+            list-style: none;
+        }
+
+        .list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: #d1d5db;
+        }
+
+        .list-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #60a5fa;
+            border-radius: 50%;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-outline {
+            border: 1px solid #374151;
+            background: transparent;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: #1f2937;
+        }
+
+        .btn svg {
+            margin-right: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Special sections */
+        .bts-highlight {
+            padding: 1rem;
+            background-color: rgba(37, 99, 235, 0.3);
+            border: 1px solid #1e40af;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .bts-highlight strong {
+            color: #93c5fd;
+        }
+
+        .bts-disabled {
+            padding: 1rem;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .bts-disabled strong {
+            color: #9ca3af;
+        }
+
+        .bts-disabled span {
+            color: #6b7280;
+        }
+
+        /* Skills */
+        .skill-card {
+            padding: 1.5rem;
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #d1d5db;
+            margin-bottom: 0.25rem;
+        }
+
+        .input, .textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #374151;
+            background-color: #1f2937;
+            color: white;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .input:focus, .textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .input::placeholder, .textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        .textarea {
+            min-height: 5rem;
+            resize: vertical;
+        }
+
+        /* Contact */
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+        }
+
+        .contact-info svg {
+            width: 2rem;
+            height: 2rem;
+            color: #60a5fa;
+        }
+
+        .contact-info a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-info a:hover {
+            color: #93c5fd;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid #1f2937;
+            padding: 3rem 0;
+        }
+
+        .footer-container {
+            max-width: 64rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            padding: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            border-radius: 0.375rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            background-color: #1f2937;
+            transform: translateY(-2px);
+        }
+
+        .footer-links svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .cv-btn {
+                position: static;
+                margin-top: 1rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .grid-projects {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility */
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        /* Notification pour liens manquants */
+        .link-error {
+            background-color: #dc2626;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            margin: 0.5rem 0;
+            display: none;
+        }
+
+        /* Style pour les liens externes fonctionnels */
+        .external-link {
+            opacity: 1 !important;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <a href="#about">À propos</a>
+                <a href="#bts">BTS SIO</a>
+                <a href="#stage">Stage</a>
+                <a href="#skills">Compétences</a>
+                <a href="#projects">Projets</a>
+                <a href="#veilles">Veilles</a>
+                <a href="#education">Formation</a>
+                <a href="#synthese">Synthèse</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a href="./Documents/CV.pdf" class="cv-btn" id="cv-link">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                CV
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                Dieng Hadyyatu<br>
+                <span class="highlight">BTS SIO Option SISR</span>
+            </h1>
+            <p>Passionné par l'informatique, les systèmes et réseaux.</p>
+        </div>
+    </section>
+
+    <!-- À propos -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>À propos de moi</h2>
+            <p class="section-text">
+                Étudiant en BTS Services Informatiques aux Organisations
+                option Solutions d'Infrastructure, Systèmes et
+                Réseaux à l'IPSSI
+            </p>
+        </div>
+    </section>
+
+    <!-- BTS SIO -->
+    <section id="bts" class="section">
+        <div class="container-wide">
+            <h2>BTS SIO option SISR</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Qu'est-ce que le BTS SIO ?</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6" style="color: #d1d5db;">
+                            Le BTS Services Informatiques aux Organisations forme des techniciens supérieurs capables de gérer et
+                            maintenir l'infrastructure informatique d'une organisation.
+                        </p>
+                        <div class="bts-highlight">
+                            <strong>SISR</strong>
+                            <span style="color: #d1d5db;"> - Solutions d'Infrastructure, Systèmes et Réseaux</span>
+                        </div>
+                        <div class="bts-disabled">
+                            <strong>SLAM</strong>
+                            <span> - Solutions Logicielles et Applications Métiers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pourquoi l'option SISR ?</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="list">
+                            <li><div class="list-dot"></div>Passion pour les technologies réseau et serveurs</li>
+                            <li><div class="list-dot"></div>Intérêt pour la cybersécurité</li>
+                            <li><div class="list-dot"></div>Volonté de devenir expert en infrastructure IT</li>
+                            <li><div class="list-dot"></div>Secteur en forte demande</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stage -->
+    <section id="stage" class="section">
+        <div class="container">
+            <h2>Mon expérience en stage</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Technicien support informatique</h3>
+                    <p class="card-desc">Logikart • 19 Mai 2025 - 27 Juin 2025</p>
+                </div>
+                <div class="card-content">
+                  <!--   <p class="mb-6" style="color: #d1d5db;">Stage au sein du service informatique d'une PME de 150 employés.</p> -->
+                    <strong style="color: white;">Missions principales :</strong>
+                    <ul class="list" style="margin-top: 1rem;">
+                        <li><div class="list-dot"></div>Fournir un support technique aux utilisateurs finaux (par téléphone, email ou en personne) pour résoudre des problèmes matériels et
+                        logiciels.</li>
+                        <li><div class="list-dot"></div>Diagnostiquer et résoudre les incidents relatifs aux systèmes d'exploitation (Windows, macOS, Linux), logiciels, imprimantes et autres
+                        périphériques.</li>
+                        <li><div class="list-dot"></div>Suivre et résoudre les tickets d'incidents via un outil de gestion.</li>
+                        <li><div class="list-dot"></div>Assurer le suivi des tickets jusqu'à leur clôture.</li>
+                        <li><div class="list-dot"></div>Interventions menées afin d'installer du matériel informatique chez des clients.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compétences -->
+    <section id="skills" class="section">
+        <div class="container-wide">
+            <h2>Compétences</h2>
+            <div class="grid-3">
+                <div class="skill-card"><h3>Linux</h3></div>
+                <div class="skill-card"><h3>Wireshark</h3></div>
+                <div class="skill-card"><h3>GitHub</h3></div>
+                <div class="skill-card"><h3>GLPI</h3></div>
+                <div class="skill-card"><h3>Cisco</h3></div>
+                <div class="skill-card"><h3>Support informatique</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets -->
+    <section id="projects" class="section">
+        <div class="container-xl">
+            <h2>Projets réalisés</h2>
+            <div class="grid-projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-sm">Mise en place et gestion d'une infrastructure Proxmox</h3>
+                    </div>
+                    <div class="card-content">
+                        <p style="color: #d1d5db;">Mise en place et gestion d'une infrastructure Proxmox, création de rôles
+et attribution à des groupes d'utilisateurs, déploiement de deux
+conteneurs web et d'un conteneur de répartition des charges avec
+Apache, ainsi que la configuration d'iptables pour assurer la sécurité et
+l'interconnexion des services.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-sm">Installation de Zabbix sur une machine virtuelle Debian 12</h3>
+                    </div>
+                    <div class="card-content">
+                        <p style="color: #d1d5db;">Déploiement et configuration de deux agents Zabbix, l’un sous Debian 12
+et l’autre sous Windows</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-sm">Mise en place de GLPI</h3>
+                    </div>
+                    <div class="card-content">
+                        <p style="color: #d1d5db;">Mise en place de GLPI sur une machine virtuelle afin de l'utiliser en tant
+qu'outil de ticketing</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-sm">Création d'une VM sous Windows Server 2022</h3>
+                    </div>
+                    <div class="card-content">
+                        <p style="color: #d1d5db;">Installation des services
+DHCP, DNS et Active Directory. Mise en place d’un contrôleur de
+domaine, ajout de machines au domaine, gestion des stratégies via GPO
+pour utilisateurs et ordinateursConfiguration d'un serveur de fichiers
+SMB avec gestion des droits NTFS et des groupes d'accès</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Veilles -->
+    <section id="veilles" class="section">
+        <div class="container-wide">
+            <h2>Veilles technologiques</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">L'automatisation des infrastructures réseau</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6" style="color: #d1d5db;"></p>
+                        <div class="link-error" id="veille-cyber-error">
+                            ⚠️ Fichier de veille cybersécurité non trouvé. Créez le fichier ou modifiez le lien.
+                        </div>
+                        <a href="./Documents/Veille_Automatisation_Infrastructures_Reseau.pdf" class="btn btn-outline btn-full" id="veille-cyber-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                            Voir la veille
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">L’impact de la virtualisation et des conteneurs dans l'administration système moderne</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6" style="color: #d1d5db;"></p>
+                        <div class="link-error" id="veille-infra-error">
+                            ⚠️ Fichier de veille infrastructure non trouvé. Créez le fichier ou modifiez le lien.
+                        </div>
+                        <a href="./Documents/Veille_Virtualisation_Containers2.pdf" class="btn btn-outline btn-full" id="veille-infra-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                            Voir la veille
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formation -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2>Formation</h2>
+            <div class="space-y-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">BTS SIO option SISR</h3>
+                        <p class="card-desc">IPSSI: Ecole d’informatique • 2024 - 2026</p>
+                    </div>
+                    <div class="card-content">
+                        <p style="color: #d1d5db;">
+                        BTS Services Informatiques aux Organisations
+                        option Solutions d'Infrastructure, Systèmes et Réseaux</p>
+                    </div>
+                </div>
+<!-- 
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Baccalauréat STI2D</h3>
+                        <p class="card-desc">Lycée Général • 2020 - 2023</p>
+                    </div>
+                    <div class="card-content">
+                        <p style="color: #d1d5db;">Spécialité Systèmes d'Information et Numérique</p>
+                    </div>
+                </div> --> 
+            </div>
+        </div>
+    </section>
+
+    <!-- Synthèse -->
+    <section id="synthese" class="section">
+        <div class="container">
+            <h2>Tableau de synthèse</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tableau de synthèse de BTS SIO SISR</h3>
+                    <p class="card-desc"></p>
+                </div>
+                <div class="card-content">
+                    <p class="mb-8" style="color: #d1d5db;"></p>
+                    <div class="link-error" id="synthese-error">
+                        ⚠️ Fichier PDF de synthèse non trouvé. Placez votre fichier dans le dossier documents/ ou modifiez le lien.
+                    </div>
+                    <div class="text-center">
+                        <a href="./Documents/BTS SIO 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse.pdf" class="btn btn-primary" id="synthese-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Télécharger PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+        <div class="container-wide">
+            <h2>Me contacter</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="contact-info">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <div>
+                            <p style="font-weight: 500; color: white; font-size: 1.125rem;">Email</p>
+                            <a href="hadyyatu.dieng.pro@gmail.com" id="email-link">hadllahi.dieng@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Envoyez-moi un message</h3>
+                    </div>
+                    <div class="card-content">
+                        <form id="contact-form">
+                            <div class="form-grid">
+                                <div>
+                                    <label for="name" class="label">Nom</label>
+                                    <input id="name" type="text" placeholder="Votre nom" class="input" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="label">Email</label>
+                                    <input id="email" type="email" placeholder="votre@email.com" class="input" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject" class="label">Sujet</label>
+                                <input id="subject" type="text" placeholder="Sujet de votre message" class="input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="label">Message</label>
+                                <textarea id="message" placeholder="Votre message..." class="textarea" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                Envoyer le message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p style="font-size: 0.875rem; color: #9ca3af;">Portfolio BTS SIO SISR - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="https://github.com/Hadyyatu" id="github-link" title="Voir mon profil GitHub" target="_blank" rel="noopener noreferrer" class="external-link">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/hadyyatu-llahi-dieng-282aab332/" id="linkedin-link" title="Voir mon profil LinkedIn" target="_blank" rel="noopener noreferrer" class="external-link">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fonction pour vérifier si un fichier existe (seulement pour les fichiers locaux)
+        async function checkFileExists(url) {
+            // Ne pas vérifier les liens externes (http/https)
+            if (url.startsWith('http://') || url.startsWith('https://')) {
+                return true;
+            }
+            
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        // Fonction pour afficher/masquer les messages d'erreur
+        function toggleErrorMessage(elementId, show) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.style.display = show ? 'block' : 'none';
+            }
+        }
+
+        // Fonction pour vérifier si un lien est externe
+        function isExternalLink(url) {
+            return url.startsWith('http://') || url.startsWith('https://');
+        }
+
+        // Mise à jour des liens et vérification des fichiers
+        document.addEventListener('DOMContentLoaded', async function() {
+            const links = window.PORTFOLIO_LINKS;
+            
+            // Mise à jour du CV
+            const cvLink = document.getElementById('cv-link');
+            cvLink.href = links.cv;
+            if (!isExternalLink(links.cv)) {
+                const cvExists = await checkFileExists(links.cv);
+                if (!cvExists) {
+                    cvLink.style.opacity = '0.5';
+                    cvLink.title = 'Fichier CV non trouvé - Vérifiez le chemin dans les liens modifiables';
+                }
+            }
+            
+            // Mise à jour de l'email
+            const emailLink = document.getElementById('email-link');
+            emailLink.href = `mailto:${links.email}`;
+            emailLink.textContent = links.email;
+            
+            // Mise à jour des veilles avec vérification
+            const veilleCyberLink = document.getElementById('veille-cyber-link');
+            veilleCyberLink.href = links.veilleCyber;
+            if (!isExternalLink(links.veilleCyber)) {
+                const veilleCyberExists = await checkFileExists(links.veilleCyber);
+                toggleErrorMessage('veille-cyber-error', !veilleCyberExists);
+                if (!veilleCyberExists) {
+                    veilleCyberLink.style.opacity = '0.5';
+                }
+            }
+            
+            const veilleInfraLink = document.getElementById('veille-infra-link');
+            veilleInfraLink.href = links.veilleInfra;
+            if (!isExternalLink(links.veilleInfra)) {
+                const veilleInfraExists = await checkFileExists(links.veilleInfra);
+                toggleErrorMessage('veille-infra-error', !veilleInfraExists);
+                if (!veilleInfraExists) {
+                    veilleInfraLink.style.opacity = '0.5';
+                }
+            }
+            
+            // Mise à jour de la synthèse avec vérification
+            const syntheseLink = document.getElementById('synthese-link');
+            syntheseLink.href = links.synthesePdf;
+            if (!isExternalLink(links.synthesePdf)) {
+                const syntheseExists = await checkFileExists(links.synthesePdf);
+                toggleErrorMessage('synthese-error', !syntheseExists);
+                if (!syntheseExists) {
+                    syntheseLink.style.opacity = '0.5';
+                }
+            }
+            
+            // Mise à jour des réseaux sociaux (toujours fonctionnels)
+            const githubLink = document.getElementById('github-link');
+            githubLink.href = links.github;
+            githubLink.classList.add('external-link');
+            
+            const linkedinLink = document.getElementById('linkedin-link');
+            linkedinLink.href = links.linkedin;
+            linkedinLink.classList.add('external-link');
+            
+            console.log('✅ Liens GitHub et LinkedIn configurés:', {
+                github: links.github,
+                linkedin: links.linkedin
+            });
+        });
+
+        // Gestion des clics sur les liens avec fichiers manquants (exclut les liens externes)
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.style.opacity === '0.5' && !link.classList.contains('external-link')) {
+                e.preventDefault();
+                alert('Ce fichier n\'existe pas encore. Veuillez vérifier le chemin dans la section "LIENS MODIFIABLES" en haut du fichier HTML.');
+            }
+        });
+
+        // Formulaire de contact
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email && subject && message) {
+                const mailtoLink = `mailto:${window.PORTFOLIO_LINKS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+                window.location.href = mailtoLink;
+                document.getElementById('contact-form').reset();
+            } else {
+                alert('Veuillez remplir tous les champs du formulaire.');
+            }
+        });
+
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
