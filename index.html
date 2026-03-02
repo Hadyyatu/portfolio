@@ -16,7 +16,6 @@
             
             // Documents
             cv: "./Documents/CV.pdf", 
-            cvImage: "./public/placeholder.jpg", // Image d'aperçu du CV
             synthesePdf: "./Documents/BTS SIO 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse.pdf",
             
             // Veilles technologiques
@@ -99,18 +98,21 @@
         .btn-full { width: 100%; margin-top: 1rem; }
         .btn svg { width: 1rem; height: 1rem; }
 
-        /* PDF Zoom Modal CSS (CV & Synthèse) */
-        .preview-box { position: relative; border: 1px solid #374151; border-radius: 0.5rem; overflow: hidden; cursor: pointer; transition: 0.3s; background: #111827; }
-        .preview-box:hover { border-color: #3b82f6; }
-        .preview-img { width: 100%; height: auto; display: block; opacity: 0.8; transition: 0.3s; }
-        .preview-box:hover .preview-img, .preview-box:hover .preview-icon-container { opacity: 1; }
-        .zoom-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; transition: 0.3s; color: white; background: rgba(0,0,0,0.6); padding: 1rem; border-radius: 50%; }
-        .preview-box:hover .zoom-icon { opacity: 1; }
+        /* Direct PDF Embed Container */
+        .pdf-embed-container { width: 100%; border: 1px solid #374151; border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem; background: #111827; }
+        .pdf-embed-container iframe { width: 100%; height: 100%; border: none; display: block; }
 
-        #pdf-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; }
+        /* Modal CSS for Veilles */
+        .preview-box { position: relative; border: 1px solid #374151; border-radius: 0.5rem; overflow: hidden; cursor: pointer; transition: 0.3s; background: #111827; }
+        .preview-box:hover { border-color: #3b82f6; background: #1f2937; }
+        .preview-box:hover .preview-icon-container { opacity: 0.3; }
+        .zoom-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; transition: 0.3s; color: white; background: rgba(37, 99, 235, 0.8); padding: 1rem; border-radius: 50%; }
+        .preview-box:hover .zoom-icon { opacity: 1; }
+        #pdf-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
         #pdf-modal.active { display: flex; }
-        .modal-content { width: 90%; max-width: 900px; height: 85vh; background: #111827; border-radius: 0.5rem; position: relative; }
-        .close-modal { position: absolute; top: -2rem; right: 0; color: white; cursor: pointer; font-size: 1.5rem; }
+        .modal-content { width: 90%; max-width: 1000px; height: 85vh; background: #111827; border-radius: 0.5rem; position: relative; border: 1px solid #374151; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .close-modal { position: absolute; top: -2.5rem; right: 0; color: white; cursor: pointer; font-size: 2rem; transition: color 0.2s; }
+        .close-modal:hover { color: #ef4444; }
         iframe.pdf-iframe { width: 100%; height: 100%; border: none; border-radius: 0.5rem; background: white;}
 
         /* Utility */
@@ -163,16 +165,13 @@
                     <a href="#contact" class="btn btn-primary">Me contacter</a>
                 </div>
                 
-                <div style="max-width: 300px; margin: 0 auto; width: 100%;">
-                    <div class="preview-box mb-4" onclick="openPdfModal(window.PORTFOLIO_LINKS.cv)">
-                        <img src="./public/placeholder.jpg" alt="Aperçu CV" class="preview-img" id="cv-image-preview">
-                        <div class="zoom-icon">
-                            <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                        </div>
+                <div style="width: 100%; max-width: 450px; margin: 0 auto;">
+                    <div class="pdf-embed-container" style="height: 500px;">
+                        <iframe id="cv-direct-preview" src="" title="Aperçu du CV"></iframe>
                     </div>
                     <a href="#" class="btn btn-outline" style="width: 100%;" id="cv-download-btn" download>
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Télécharger mon CV
+                        Télécharger le CV
                     </a>
                 </div>
             </div>
@@ -291,26 +290,11 @@
                     
                     <strong style="color: white; display: block; margin-bottom: 1rem; font-size: 1.125rem;">Mes missions quotidiennes :</strong>
                     <ul class="list" style="margin-top: 1rem; font-size: 1rem;">
-                        <li>
-                            <div class="list-dot"></div>
-                            Fournir un support technique aux utilisateurs finaux (par téléphone, email ou en personne) pour résoudre des problèmes matériels et logiciels.
-                        </li>
-                        <li>
-                            <div class="list-dot"></div>
-                            Diagnostiquer et résoudre les incidents relatifs aux systèmes d'exploitation (Windows, macOS, Linux), logiciels, imprimantes et autres périphériques.
-                        </li>
-                        <li>
-                            <div class="list-dot"></div>
-                            Suivre et résoudre les tickets d'incidents via un outil de gestion (ITSM).
-                        </li>
-                        <li>
-                            <div class="list-dot"></div>
-                            Assurer le suivi des tickets avec rigueur, de la prise en compte jusqu'à leur clôture définitive.
-                        </li>
-                        <li>
-                            <div class="list-dot"></div>
-                            Interventions menées afin d'installer et de configurer du matériel informatique directement chez les clients.
-                        </li>
+                        <li><div class="list-dot"></div>Fournir un support technique aux utilisateurs finaux (par téléphone, email ou en personne) pour résoudre des problèmes matériels et logiciels.</li>
+                        <li><div class="list-dot"></div>Diagnostiquer et résoudre les incidents relatifs aux systèmes d'exploitation (Windows, macOS, Linux), logiciels, imprimantes et autres périphériques.</li>
+                        <li><div class="list-dot"></div>Suivre et résoudre les tickets d'incidents via un outil de gestion (ITSM).</li>
+                        <li><div class="list-dot"></div>Assurer le suivi des tickets avec rigueur, de la prise en compte jusqu'à leur clôture définitive.</li>
+                        <li><div class="list-dot"></div>Interventions menées afin d'installer et de configurer du matériel informatique directement chez les clients.</li>
                     </ul>
                 </div>
             </div>
@@ -322,24 +306,7 @@
             <h2>Veille Technologique</h2>
             <p class="section-subtitle">Maintien de mes connaissances face aux évolutions matérielles et aux menaces logicielles.</p>
             
-            <div class="grid-3">
-                <div class="card" style="grid-column: span 1;">
-                    <div class="card-header">
-                        <h3 class="card-title">Mes Sources</h3>
-                    </div>
-                    <div class="card-content">
-                        <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">
-                            Pour m'informer en continu, j'utilise une agrégation de flux RSS et des plateformes d'actualités spécialisées :
-                        </p>
-                        <ul class="list">
-                            <li><div class="list-dot"></div> Feedly (Agrégateur RSS)</li>
-                            <li><div class="list-dot"></div> ANSSI / CERT-FR</li>
-                            <li><div class="list-dot"></div> ZATAZ / LeMagIT</li>
-                            <li><div class="list-dot"></div> BleepingComputer</li>
-                        </ul>
-                    </div>
-                </div>
-
+            <div class="grid-2">
                 <div class="card" style="grid-column: span 2;">
                     <div class="card-header">
                         <p class="card-desc mb-4">Sujet d'étude principal</p>
@@ -347,17 +314,10 @@
                     </div>
                     <div class="card-content">
                         <p style="color: #d1d5db; font-size: 0.95rem; margin-bottom: 1rem;">
-                            L'actualité informatique est continuellement rythmée par des incidents de sécurité (rançongiciels, fuites de données, attaques DDoS) ciblant des entreprises et institutions. Ma veille consiste à recenser les attaques majeures s'étant produites cette année.
+                            L'actualité informatique est continuellement rythmée par des incidents de sécurité (rançongiciels, fuites de données, attaques DDoS) ciblant des entreprises et institutions. Ma veille (alimentée par Feedly, ANSSI, et ZATAZ) consiste à recenser les attaques majeures s'étant produites cette année.
                         </p>
-                        <p style="color: #d1d5db; font-size: 0.95rem; margin-bottom: 1rem;">
-                            Plutôt que de m'arrêter à l'incident, j'analyse les vecteurs de compromission utilisés (phishing, exploitation de failles non patchées) et j'étudie minutieusement <strong>les résolutions et les plans de remédiation</strong> mis en place par les équipes techniques pour endiguer la menace et restaurer les systèmes.
-                        </p>
-                        <div style="background: rgba(17, 24, 39, 0.8); padding: 1rem; border-radius: 0.5rem; border: 1px solid #1f2937;">
-                            <strong style="color: white; display:block; margin-bottom: 0.5rem;">Bénéfice professionnel :</strong>
-                            <p style="color: #9ca3af; font-size: 0.875rem;">
-                                Cette démarche d'analyse post-incident me permet de comprendre les erreurs de configuration courantes, de développer de meilleurs réflexes lors de mes missions de support technique (diagnostic réseau/système), et d'anticiper la sécurisation des postes utilisateurs avant qu'un incident ne se produise.
-                            </p>
-                        </div>
+                        <p style="color: #d1d5db; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                            Plutôt que de m'arrêter à l'incident, j'analyse les vecteurs de compromission utilisés et j'étudie minutieusement <strong>les résolutions et les plans de remédiation</strong> mis en place par les équipes techniques pour endiguer la menace et restaurer les systèmes.
                     </div>
                 </div>
             </div>
@@ -393,23 +353,17 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Document officiel (Annexe 8-1)</h3>
+                        <h3 class="card-title">Tableau de Synthèse</h3>
                     </div>
-                    <div class="card-content" style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="card-content" style="text-align: center;">
                         
-                        <div class="preview-box mb-4" onclick="openPdfModal(window.PORTFOLIO_LINKS.synthesePdf)" style="width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; background: #1f2937; border: 1px dashed #374151;">
-                            <div class="preview-icon-container" style="transition: 0.3s;">
-                                <svg style="width: 3rem; height: 3rem; color: #6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                <span style="display: block; color: #9ca3af; font-size: 0.875rem; margin-top: 0.5rem;">Cliquer pour visualiser</span>
-                            </div>
-                            <div class="zoom-icon">
-                                <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                            </div>
+                        <div class="pdf-embed-container" style="height: 350px;">
+                            <iframe id="synthese-direct-preview" src="" title="Aperçu de la Synthèse"></iframe>
                         </div>
 
-                        <a href="#" class="btn btn-outline" id="synthese-download-btn" download style="width: 100%;">
+                        <a href="#" class="btn btn-primary" id="synthese-download-btn" download style="width: 100%;">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Télécharger le fichier PDF
+                            Télécharger le Tableau
                         </a>
                     </div>
                 </div>
@@ -468,7 +422,7 @@
     </div>
 
     <script>
-        // Fonction globale pour ouvrir la modale PDF
+        // Fonction globale pour ouvrir la modale PDF (utilisée pour les veilles)
         function openPdfModal(url) {
             document.getElementById('pdf-iframe').src = url;
             document.getElementById('pdf-modal').classList.add('active');
@@ -477,12 +431,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             const links = window.PORTFOLIO_LINKS;
             
-            // Attributions des liens
+            // Intégration Directe des iframes pour voir les documents sur la page
+            // On ajoute #toolbar=0&navpanes=0 pour cacher les menus par défaut du lecteur PDF
+            document.getElementById('cv-direct-preview').src = links.cv + "#toolbar=0&navpanes=0&view=FitH";
+            document.getElementById('synthese-direct-preview').src = links.synthesePdf + "#toolbar=0&navpanes=0&view=FitH";
+
+            // Attributions des liens de téléchargement classiques
             document.getElementById('cv-download-btn').href = links.cv;
-            document.getElementById('cv-image-preview').src = links.cvImage;
-            
             document.getElementById('synthese-download-btn').href = links.synthesePdf;
+            document.getElementById('veille-cyber-download').href = links.veilleCyber;
+            document.getElementById('veille-infra-download').href = links.veilleInfra;
             
+            // Attributions Email / Réseaux sociaux
             document.getElementById('email-link').href = `mailto:${links.email}`;
             document.getElementById('email-link').textContent = links.email;
             
@@ -495,7 +455,7 @@
         document.getElementById('pdf-modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.remove('active');
-                // Optionnel: Vider la source pour arrêter le chargement du pdf si on ferme vite
+                // On vide la source pour arrêter le chargement du pdf si on ferme la fenêtre
                 document.getElementById('pdf-iframe').src = ""; 
             }
         });
